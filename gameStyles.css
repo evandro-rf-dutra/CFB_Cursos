@@ -1,0 +1,38 @@
+div.tela{
+    position:absolute;
+    top: 2%;
+    left: 2%;
+    background-color: black;
+    height: 50%;
+    width: 50%;
+
+    text-align: center; /** pq o botao esta dentro de um <p> */
+
+    
+}
+
+input.buttonJogar{
+    background-color: white;
+    padding: 15px 15px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+
+    width: 10%; /** tamanho do botao*/
+    height: 10%;
+
+}
+
+p.titulo{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    color: white;
+}
+
+p.descricao{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    color: white;
+}
