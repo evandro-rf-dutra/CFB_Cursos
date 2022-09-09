@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        div.cores{
+            
+            height: 300px;
+            width: 300px;
+            background-color:white;
+            border: 2px solid #000;
+        }
+        p.cor{
+            text-align: center;
+            color: black;
+            
+        }
+    </style>
+
+    <script>
+        
+        window.addEventListener("load", iniEventos);
+        var btn_ini;
+        var btn_stop;
+        var temporizador;
+        var proxima_cor = 0;
+        var cores = ["red", "blue", "green", "yellow"];
+
+        function iniEventos(){
+            btn_ini = document.getElementById("btn1");
+            btn_ini.addEventListener("click", iniciar_cores);
+            btn_stop = document.getElementById("btn2");
+            btn_stop.addEventListener("click", parar_cores);
+
+            window,addEventListener("keydown", moverDiv);
+        }
+
+        function moverDiv(){
+            var tecla = event.keyCode;
+            alert(tecla);
+            if(tecla == 39){
+                document.getElementById("cores").style.left = "20%";
+                document.getElementById("cores").style.position = "absolute";
+
+            }
+
+        }
+
+        function iniciar_cores(){
+            temporizador = setInterval(mudarCores,2000);
+        }
+        function parar_cores(){
+            clearInterval(temporizador);
+        }
+
+        function mudarCores(){
+
+            document.getElementById("cores").style.backgroundColor = cores[proxima_cor];
+
+            if(( cores.length - 1 ) == proxima_cor){
+                proxima_cor = 0;
+            }else{
+                proxima_cor ++;
+            }
+
+        }
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+    <div class="cores" id="cores"> 
+        <p class="cor">cores aqui!</p>
+    </div>
+    <p><input type="button" value="iniciar" name="btn1" id="btn1"></p>
+    <p><input type="button" value="parar" name="btn2" id="btn2"></p>
+    
+</body>
+</html>

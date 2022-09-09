@@ -4,6 +4,7 @@ window.addEventListener("load",eventLoad);
 var botaoJogar; // global para ser visivel em todos os escopos/funcoes
 var corDoBotao = 0; // se 0 cor branca, 1 outra cor
 
+
 function eventLoad(){
     botaoJogar = document.getElementById("jogar");
     botaoJogar.addEventListener("click",iniciar);
