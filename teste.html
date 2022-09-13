@@ -7,81 +7,85 @@
     <title>Document</title>
 
     <style>
-        div.cores{
-            
-            height: 300px;
-            width: 300px;
-            background-color:white;
-            border: 2px solid #000;
+        div.jogador{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            left: 0px;
+            top: 0px;
+            background-color:black;
+            border: 2px solid orange;
         }
-        p.cor{
+        p{
             text-align: center;
-            color: black;
-            
         }
     </style>
 
     <script>
         
-        window.addEventListener("load", iniEventos);
-        var btn_ini;
-        var btn_stop;
-        var temporizador;
-        var proxima_cor = 0;
-        var cores = ["red", "blue", "green", "yellow"];
+        window.addEventListener("load",inicializar);
 
-        function iniEventos(){
-            btn_ini = document.getElementById("btn1");
-            btn_ini.addEventListener("click", iniciar_cores);
-            btn_stop = document.getElementById("btn2");
-            btn_stop.addEventListener("click", parar_cores);
+        //var tecla;
+        var px =0;
+        var py=0;
+        var jogador;
+        var coordenadas;
 
-            window,addEventListener("keydown", moverDiv);
+        function inicializar(){
+            jogador = document.getElementById("jog");
+            coordenadas = document.getElementById("coordenadas");
+            document.addEventListener("keydown", mov);
+            document.addEventListener("click", parar)
         }
 
-        function moverDiv(){
-            var tecla = event.keyCode;
-            alert(tecla);
-            if(tecla == 39){
-                document.getElementById("cores").style.left = "20%";
-                document.getElementById("cores").style.position = "absolute";
+        function parar(){
+            document.removeEventListener("keydown",mov);
+            alert("removeu evento KEYDOWN");
+        }
 
+        function mov(){
+            var tecla = window.event.keyCode;
+            var salto = 5;
+            /* 37=esquerda 38=cima 39=direita 40=baixo */
+            if(tecla == 37){
+                px -= salto;
+                //jogador.style.left = px+"px";
+                if(px < 0){
+                    px = 0;
+                }
             }
-
-        }
-
-        function iniciar_cores(){
-            temporizador = setInterval(mudarCores,2000);
-        }
-        function parar_cores(){
-            clearInterval(temporizador);
-        }
-
-        function mudarCores(){
-
-            document.getElementById("cores").style.backgroundColor = cores[proxima_cor];
-
-            if(( cores.length - 1 ) == proxima_cor){
-                proxima_cor = 0;
-            }else{
-                proxima_cor ++;
+            else if(tecla == 38){
+                py -= salto;
+                //jogador.style.top = py +"px";
+                if(py < 0){
+                    py = 0;
+                }
             }
-
+            else if(tecla == 39){
+                px += salto;
+                //jogador.style.left = px+"px";
+                if(px > 500){
+                    px = 500;
+                }
+            }
+            else if(tecla == 40){
+                py += salto;
+                //jogador.style.top = py+"px";
+                if(py > 500){
+                    py = 500;
+                }
+            }
+            jogador.style.left = px+"px";
+            jogador.style.top = py +"px";
+            coordenadas.innerText = " [ "+px+" ] [ "+py+" ]";
         }
-
-
-
+            
     </script>
-
-
 </head>
 <body>
+    <p id="coordenadas">Coordenadas: </p>
 
-    <div class="cores" id="cores"> 
-        <p class="cor">cores aqui!</p>
-    </div>
-    <p><input type="button" value="iniciar" name="btn1" id="btn1"></p>
-    <p><input type="button" value="parar" name="btn2" id="btn2"></p>
-    
+    <div class="jogador" id="jog"></div>
+
 </body>
 </html>
