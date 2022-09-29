@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fatorial</title>
+
+    <script>
+
+        var buttonCalc; // button calcular
+        var textArea;
+        var aux;
+
+        function ini(){
+            buttonCalc = document.getElementById("calcular");
+            textArea = document.getElementById("resposta");
+            buttonCalc.addEventListener("click",fatGambiarra);
+            
+        }
+
+        function fatGambiarra(){
+            aux = Number(document.getElementById("num").value); // entrada do usuario
+            textArea.value = "";
+            var resposta = fatorial(aux);
+            textArea.value += " = "+resposta;
+        }
+
+        function fatorial(num){
+            if(num == 1) {
+                textArea.value += num+" ";
+                return 1;
+            }
+            textArea.value += num+" x ";
+            return (fatorial(num-1) * num); 
+        }
+
+        window.addEventListener("load",ini);
+        
+    </script>
+
+</head>
+<body>
+    <h1>Fatorial Simples com recursao</h1>
+    <br>
+    <input type="number" id="num" min="1" max="20" value="3">
+
+    <input type="button" id="calcular" value=" Calcular "></button>
+    <br>
+    <br>
+    <textarea name="resposta" id="resposta" cols="50" rows="2"> RESPOSTA AQUI!</textarea>
+    
+</body>
+</html>

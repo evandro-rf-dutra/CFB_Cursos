@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Relogio com setInterval </title>
+
+    <script>
+        var relogio;
+
+        function inicializar(){
+            relogio = document.getElementById("rel");
+            setInterval(atualizarHora,30);
+        }
+
+        function atualizarHora(){
+
+            var data = new Date();
+            var hora = data.getHours();
+            var min = data.getMinutes();
+            var sec = data.getSeconds();
+
+            if(sec<10){
+                sec = "0" +sec;
+            }
+            else if(min<10){
+                min = "0" +min;
+            }
+            else if(hora<10){
+                hora = "0"+hora;
+            }
+
+            relogio.innerText = hora + " : " + min + " : " +sec;
+            
+        }
+
+        window.addEventListener("load",inicializar);
+
+    </script>
+
+    <style>
+        p{
+            font-size: medium;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color:chartreuse;
+        }
+        div{
+            height: 25px;
+            width: 200px;
+            background-color: black;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="divRel"><p id="rel"> 00 : 00 : 00</p></div>
+    
+</body>
+</html>

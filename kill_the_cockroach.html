@@ -1,0 +1,112 @@
+<!--
+
+    MATE A BARATA QUE SE MOVIMENTA NA TELA
+    CLICANDO COM O MOUSE SOBRE ELA!
+
+    nota: testando request animation frame.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> Kill the cockroach </title>
+
+    <script>
+        
+        var dx; /** direcao */
+        var dy;
+        var px; /** posicao */
+        var py;
+        var velocidade;
+        var animacao;
+        var cockroach;
+        var contador;
+
+        function init(){
+
+            cockroach = document.getElementById("cock");
+
+            dx = 1; // 1 direita   -1 esquerda
+            dy = 0;
+            px = 0;
+            py = 0;
+            velocidade = 5;
+            contador = 0;
+
+            loopGame();
+        }
+
+        function loopGame(){
+
+            // atualiza as posicoes
+            px += (dx*velocidade);
+            py += (dy*velocidade);
+
+            // debug
+            console.log("coordenadas: x:"+px+" y:"+py);
+
+            if(validateCoord(px,py) == true){
+                // movimento valido
+                cockroach.style.left = px+"px";
+                cockroach.style.top = py+"px";
+                contador ++;
+            }
+            else{
+                px = 0;
+                py = 0;
+                contador = 0;
+                cockroach.style.left = px+"px";
+                cockroach.style.top = py+"px";
+            }
+
+            console.log("contador: "+ contador);
+
+            animacao = requestAnimationFrame(loopGame); /** ponto recursivo */
+
+        }
+
+        // função que testa os limites da tela.
+        // recebe as coordenadas x e y.
+        // retorna false se movimento inválido.
+        function validateCoord(x, y){
+            if((x<0) || (y<0) || (x>600) || (y>600)){
+                return false;
+            }
+            else return true;
+        }
+
+        /** retorno um valor aleatorio inteiro. maior ou igual a MIN e menor que MAX
+         * exemplo: min = -1; max = 2;  saídas possiveis = -1,0,1    
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+        */
+
+        window.addEventListener("load",init);
+
+    </script>
+
+    <style>
+        #cock{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: black;
+            height: 25px;
+            width: 25px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="cock"></div>
+    
+</body>
+</html>
