@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sistema de notas simples</title>
+
+    <script>
+        var botaoCadastrar;
+
+        var inputNome;
+        var inputN1;
+        var inputN2;
+        var inputN3;
+
+        var alunos = [];
+        var tabela;
+
+        function cadastrarNovo(){
+
+            inputNome = document.getElementById("nome").value;
+            inputN1 = document.getElementById("n1").valueAsNumber;// utilizar valueAsNumber.. retorna o input em Number
+            inputN2 = document.getElementById("n2").valueAsNumber;
+            inputN3 = document.getElementById("n3").valueAsNumber;
+            var mediaF = (inputN1 + inputN2 + inputN3) / 3;
+
+            alunos.push(retornaAluno(inputNome, inputN1, inputN2, inputN3, mediaF ));
+
+            adicionarNaTabela();
+
+        }
+
+        function adicionarNaTabela(){
+            //adicionar o aluno cadastrado na tabela
+            var numLinhas = tabela.rows.length;
+            var linha = tabela.insertRow(numLinhas); // adiciona uma nova linha na posicao indicada no parametro
+            // linha par ou impar ?
+            // formatar as linha adicionadas
+            //
+            if((numLinhas % 2) != 0){
+                // linha impar
+                linha.classList.add("impar"); // adicionando a propriedade class = impar para a nova linha
+            }
+
+            var celula1 = linha.insertCell(0);
+            celula1.classList.add("nome"); // adicionando a propriedade class = nome para a nova coluna
+            var celula2 = linha.insertCell(1);
+            var celula3 = linha.insertCell(2);
+            var celula4 = linha.insertCell(3);
+            var celula5 = linha.insertCell(4);
+
+            celula1.innerText = ""+alunos[alunos.length-1].nome;
+            celula2.innerText = ""+alunos[alunos.length-1].n1;
+            celula3.innerText = ""+alunos[alunos.length-1].n2;
+            celula4.innerText = ""+alunos[alunos.length-1].n3;
+            celula5.innerText = ""+alunos[alunos.length-1].nFinal;
+
+            console.log("numero de linhas da tabela: "+ numLinhas); // debug
+            exibirVetorAlunos();
+
+        }
+        
+        function retornaAluno(nome,n1,n2,n3,nFinal){
+            var aluno = {
+                nome: nome,
+                n1: n1,
+                n2: n2,
+                n3: n3,
+                nFinal: nFinal
+            };
+            return aluno;
+        }
+
+        function exibirVetorAlunos(){
+            for (let index = 0; index < alunos.length; index++) {
+                console.log(alunos[index]);
+                
+            }
+        }
+
+        function inicializar(){
+            botaoCadastrar = document.getElementById("cadastrar");
+            botaoCadastrar.addEventListener("click",cadastrarNovo);
+            tabela = document.getElementById("tabela_alunos");
+        }
+
+        window.addEventListener("load",inicializar);
+
+
+    </script>
+
+    <style>
+        td{
+            padding: 5px;
+        }
+        table{
+            text-align: center;
+            width: 50%;	
+            border-collapse: collapse;
+            margin: auto;
+            min-width: 300px;
+            margin-top: 50px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+        .impar{
+	        background-color: rgb(240,248,255);
+        }
+        .nome{
+	        text-align: left;
+        }
+    </style>
+
+
+</head>
+<body>
+    <h1>Cadastro de alunos</h1>
+    <form>
+        <label for="nome">Nome:</label>
+        <br>
+        <input type="text" id="nome" name="nome">
+        <br>
+        
+        <label for="n1">Nota 1:</label>
+        <br>
+        <input type="number" id="n1" name="n1">
+        <br>
+        <label for="n2">Nota 2:</label>
+        <br>
+        <input type="number" id="n2" name="n2">
+        <br>
+        <label for="n3">Nota 3:</label>
+        <br>
+        <input type="number" id="n3" name="n3">
+
+        <br><br>
+        <input type="button" name="cadastrar" id="cadastrar" value="Cadastrar">
+    </form>
+
+    <table id="tabela_alunos">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Nota 1</td>
+                <td>Nota 2</td>
+                <td>Nota 3</td>
+                <td>Média final</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="impar">
+                <td class="nome">Evandro</td>
+                <td>70</td>
+                <td>80</td>
+                <td>90</td>
+                <td>80.00</td>
+            </tr>
+            <tr>
+                <td class="nome">Ronaldo</td>
+                <td>70</td>
+                <td>70</td>
+                <td>70</td>
+                <td>70.00</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+</html>

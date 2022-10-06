@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>slider</title>
+
+    <script>
+
+        var divSlide;
+        var vetImgs = [];
+        var numMaxImg = 3; // numero de imagens do diretorio
+        var imgAtual = 0;
+        var btProx;
+        var btAnt;
+        var contador;
+        var barraProgresso; /* controla a barra de load */
+
+        function inic(){
+            
+            imgAtual = 0;
+            contador = 100; // pronto para trocar a imagem.. assim que carregada a pag
+            barraProgresso = document.getElementById("dvBarra");
+
+            carregarImagens();
+
+            btProx = document.getElementById("btProximo");
+            btAnt = document.getElementById("btAnterior");
+            
+            btProx.addEventListener("click",mudaImagemProx); // 1 dir, -1 esq
+            btAnt.addEventListener("click",mudaImagemAnt);
+
+            divSlide = document.getElementById("slide");
+
+            mudaImagemAuto();
+        }
+
+        function mudaImagemProx(){
+            mudaImagem(1);
+        }
+        function mudaImagemAnt(){
+            mudaImagem(-1);
+        }
+        
+        function mudaImagem(n){
+            console.log("function mudaImagem... parametro: "+n);
+            console.log("function mudaImagem... Imagem Atual: "+imgAtual);
+            if(n == 1){
+                // direita
+                ++imgAtual;
+                console.log("function mudaImagem... direita - "+imgAtual);
+                if(imgAtual >= numMaxImg){
+                    console.log(" if imgAtual >= 3 : "+imgAtual);
+                    imgAtual = 0;       
+                }
+            }
+            else if(n == -1){
+                // esquerda
+                --imgAtual;
+                console.log(" function mudaImagem... esquerda - "+imgAtual);
+                if(imgAtual < 0){
+                    console.log(" if imgAtual <= 0 : "+imgAtual);
+                    imgAtual = numMaxImg - 1;
+                } 
+            }
+            slider(imgAtual);
+            contador = 0;
+        }
+
+        function mudaImagemAuto(){
+            console.log("contador da barra: "+contador);
+            if(contador == 100){
+                // troca imagem
+                mudaImagem(1);
+                //contador = 0;
+            }
+            else{
+                contador++;
+            }
+            barraProgresso.style.width = (contador)+"%";
+            window.requestAnimationFrame(mudaImagemAuto);
+        }
+
+        function carregarImagens(){ // carrega as imagens no vetor
+
+            console.log("function carregarImagens");
+
+            for (let index = 0; index < numMaxImg; index++) {
+                vetImgs[index] = new Image();
+                vetImgs[index].src = "Imagens/img"+index+".jpg";
+                
+            }
+        }
+
+        // funcao que atribui uma imagem na DIV Slide
+        // recebe o indice do vetor imagens
+        function slider(imagemIndex){
+            console.log("function Slider");
+            divSlide.style.backgroundImage = "url('"+vetImgs[imagemIndex].src+"')";
+        }
+
+        window.addEventListener("load",inic);
+
+    </script>
+
+    <style>
+        .slideClass{
+            width: 1400px;
+            height: 800px;
+            border: 1px solid #000;
+            display: flex; /* para facilitar o posicionamento dos elementos */
+            justify-content: space-between; /* isso vai fazer a distribuicao dos elementos dentro da div */
+            align-items: center;
+        }
+        .btSlider{
+            background-color: rgba(0, 0, 0, 0.4);
+            height: 30%;
+            color: white;
+            cursor: pointer;
+            outline: none;
+            margin: 10px;
+            border: none;
+        }
+        #dvLoad{
+            width: 100%; /* ocupa 100% da div na largura*/
+            height: 5px; /* altura da barra */
+            margin-top: 25%; /* margin top vai definir a posicao */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #dvBarra{
+            width: 0%; /* vai exibir a barra de carregamento começa em 0% */
+            height: 100%;
+            background-color: white;
+            
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="slide" class="slideClass">
+        <button id="btAnterior" class="btSlider"> < </button>
+        <div id="dvLoad">
+            <div id="dvBarra"> . . . </div>
+        </div>
+        <button id="btProximo" class="btSlider"> > </button>
+    </div>
+    
+</body>
+</html>
