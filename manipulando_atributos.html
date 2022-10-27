@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controlando atributos</title>
+
+    <script>
+
+        var dvSlider;
+        var contador;
+        var maxCount;
+
+        function inicializar(){
+
+            maxCount = 3;
+            contador = -1;
+            dvSlider = document.getElementById("divSlider");
+            setInterval(trocaImg,1000); /* poderia ser utilizado setAnimationFrame */
+
+        }
+
+        function trocaImg(){
+            ++contador;
+            if(contador >= 3){ /* existem tres imagens.. começando em img 0 */
+                contador = 0;
+            }
+            var proximaImg = "img"+contador;
+            dvSlider.setAttribute("class",proximaImg);
+        }
+
+        window.addEventListener("load",inicializar);
+    </script>
+
+    <style>
+
+        .img0{
+            background-image: url("Imagens/img0.jpg");
+        }
+        .img1{
+            background-image: url("Imagens/img1.jpg");
+        }
+        .img2{
+            background-image: url("Imagens/img2.jpg");
+        }
+    
+        #divSlider{
+                width: 1400px;
+                height: 800px;
+                border: 1px solid #000;
+                display: flex; /* para facilitar o posicionamento dos elementos */
+                justify-content: space-between; /* isso vai fazer a distribuicao dos elementos dentro da div */
+                align-items: center;
+            }
+    </style>
+
+</head>
+
+<body>
+    <div id="divSlider" class="img0"> </div>
+    <footer>
+        <strong>
+            Exemplo de Slider com:
+            setAttribute - removeAttribute - hasAttribute
+        </strong>
+    </footer>
+</body>
+</html>
